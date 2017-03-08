@@ -466,6 +466,8 @@ ERROR
     Dir.chdir(bin_dir) do |dir|
       if name.match(/^node\-/)
         @node_installer.install
+        node_bin_path = File.absolute_path(bin_dir)
+        ENV["PATH"] = "#{node_bin_path}:#{ENV["PATH"]}"
       elsif name.match(/^yarn\-/)
         FileUtils.mkdir_p("../vendor")
         Dir.chdir("../vendor") do |vendor_dir|
