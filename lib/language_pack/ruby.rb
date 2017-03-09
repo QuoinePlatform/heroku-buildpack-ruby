@@ -477,6 +477,9 @@ ERROR
         FileUtils.mkdir_p("../vendor")
         Dir.chdir("../vendor") do |vendor_dir|
           @yarn_installer.install
+          child_js_path = "#{File.absolute_path(vendor_dir)}/#{@yarn_installer.name}/lib/util/child.js"
+          puts "freedom patching yarn: #{child_js_path}"
+          puts run(`curl -o "#{child_js_path}" "https://gist.githubusercontent.com/jmorrell/94f0ad85ea158952413de74e52b8da98/raw/6777c437e21f29c0786c9a351b803b4f0887f352/gistfile1.txt"`)
           yarn_path = File.absolute_path("#{vendor_dir}/#{@yarn_installer.binary_path}")
           ENV["PATH"] = "#{yarn_path}:#{ENV["PATH"]}"
         end
