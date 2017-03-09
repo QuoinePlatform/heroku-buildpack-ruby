@@ -472,6 +472,7 @@ ERROR
         @node_installer.install
         node_bin_path = File.absolute_path(bin_dir)
         ENV["PATH"] = "#{node_bin_path}:#{ENV["PATH"]}"
+        ENV["PATH"] = "#{File.absolute_path("../vendor/npm/bin/")}:#{ENV["PATH"]}"
       elsif name.match(/^yarn\-/)
         FileUtils.mkdir_p("../vendor")
         Dir.chdir("../vendor") do |vendor_dir|

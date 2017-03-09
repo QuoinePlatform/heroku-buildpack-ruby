@@ -15,12 +15,14 @@ class LanguagePack::NodeInstaller
   def install
     Dir.mktmpdir do |dir|
       node_bin = "#{binary_path}/bin/node"
+      npm_bin  = "#{binary_path}/lib/node_modules/npm"
 
       Dir.chdir(dir) do
-        @fetcher.fetch_untar(@url, node_bin)
+        @fetcher.fetch_untar(@url, "#{node_bin} #{npm_bin}")
       end
 
       FileUtils.mv("#{dir}/#{node_bin}", ".")
+      FileUtils.mv("#{dir}/#{npm_bin}", "../vendor")
     end
   end
 
